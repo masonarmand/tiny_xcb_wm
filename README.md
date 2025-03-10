@@ -28,38 +28,40 @@ xcb_generic_event_t* e;
 xcb_button_press_event_t* ev = (xcb_button_press_event_t*) event->ev;
 ```
 
-Here's what getting the attributes of a window looks like in Xlib:
-```C
-XWindowAttributes attrs;
-if (XGetWindowAttributes(display, root, &attrs)) {
-    printf("Window position: (%d, %d)\n", attrs.x, attrs.y);
-    printf("Size: %dx%d\n", attrs.width, attrs.height);
-}
+Compare this source code with TinyWM (https://github.com/mackstann/tinywm) to guage
+the difference between the verbosity of the two libraries.
+Note: because of the verbosity of xcb, I broke down a lot of the functionality into
+different functions. Otherwise it would've been difficult to read.
+
+## SLOC (Source Lines of Code) Comparison:
+Source Lines of Code is the lines of code not including line breaks and comments.
+Tinyxcb SLOC count could be reduced if everything was in main() with no extra data
+structures like tinywm. However, the SLOC would probably still be around 3x more than
+tinywm.
+```
+tinyxcb - 150 SLOC
+tinywm  - 40  SLOC
 ```
 
-And here's what it looks like in xcb...
-```C
-xcb_get_geometry_cookie_t geom_cookie = xcb_get_geometry(conn, root);
-xcb_get_geometry_reply_t* geom = xcb_get_geometry_reply(conn, geom_cookie, NULL);
-
-if (geom) {
-    printf("Window position: (%d, %d)\n", geom->x, geom->y);
-    printf("Size: %dx%d\n", geom->width, geom->height);
-    free(geom)
-}
+## Memory Usage of tinyxcb vs tinyWM
+This is not a definite measurement, as memory usage is sort of hard to accurately
+measure. For this I used the tool called `smem`. As you can see below, even with
+this minimal example, xcb still uses less memory.
+```
+tinyxcb - 222.0k
+tinywm  - 308.0k
 ```
 
-
-
-```
-  PID User     Command                         Swap      USS      PSS      RSS
-27485 mason    ./tinyxcb                          0      204      222     1872
-```
-```
-  PID User     Command                         Swap      USS      PSS      RSS
-27666 mason    ./tinywm                           0      264      308     2508
-```
-
+## Compilation
+To compile you need the following libraries (apt):
 ```
 libxcb-keysyms1-dev
+libxcb1-dev
+libxcb-util0-dev
+```
+
+Build and run (inside of Xephyr):
+```
+make
+./run_sandbox
 ```
