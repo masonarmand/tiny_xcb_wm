@@ -7,6 +7,7 @@ Why xcb instead of Xlib?
  - xcb is newer and has a much smaller codebase
  - lower memory usage
  - lots more (read here: https://www.x.org/wiki/guide/xlib-and-xcb/)
+
 Why Xlib instead of xcb?
  - For some use cases the performance advantages of xcb over xlib are minimal
  - Xlib is a lot easier to learn (in my opinion), and actually has documentation.
