@@ -1,0 +1,3 @@
+xeyes &
+st &
+exec ./tinyxcb
