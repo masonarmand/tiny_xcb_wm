@@ -18,7 +18,7 @@ In Xlib lots of the types and functions have simple and obvious names.
 For example the event struct is called `XEvent`. To get a button event you do this:
 ```C
 XEvent event;
-XButtonEvent button_event = e.xbutton;
+XButtonEvent button_event = event.xbutton;
 ```
 
 In xcb the types and functions are extremely long. In xcb here is how you get a 
