@@ -17,15 +17,15 @@ Xlib's documentation is not too great, but when compared to xcb it's infinitely 
 In Xlib lots of the types and functions have simple and obvious names.
 For example the event struct is called `XEvent`. To get a button event you do this:
 ```C
-XEvent e;
-XButtonEvent e = e.xbutton;
+XEvent event;
+XButtonEvent button_event = e.xbutton;
 ```
 
 In xcb the types and functions are extremely long. In xcb here is how you get a 
 button event:
 ```C
-xcb_generic_event_t* e;
-xcb_button_press_event_t* ev = (xcb_button_press_event_t*) event->ev;
+xcb_generic_event_t* event;
+xcb_button_press_event_t* button_event = (xcb_button_press_event_t*) event;
 ```
 
 Compare this source code with TinyWM (https://github.com/mackstann/tinywm) to guage
