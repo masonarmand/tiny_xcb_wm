@@ -58,7 +58,7 @@ void handle_button_press(EventInfo* event)
                 xcb_get_geometry_reply_t* geom;
 
                 event->mv.win = ev->child;
-                event->mv.x = ev->root_y;
+                event->mv.x = ev->root_x;
                 event->mv.y = ev->root_y;
                 event->mv.btn = ev->detail;
 
@@ -104,6 +104,7 @@ void handle_motion_notify(EventInfo* event)
 void handle_button_release(EventInfo* event)
 {
         event->mv.win = XCB_NONE;
+        xcb_flush(event->conn);
 }
 
 
@@ -111,6 +112,7 @@ void handle_events(xcb_connection_t* conn)
 {
         xcb_generic_event_t* ev;
         EventInfo ev_info = { 0 };
+        ev_info.mv.win = XCB_NONE;
 
         while ((ev = xcb_wait_for_event(conn))) {
                 unsigned int ev_type = ev->response_type & ~0x80;
@@ -131,8 +133,8 @@ void handle_events(xcb_connection_t* conn)
                         handle_button_release(&ev_info);
                         break;
                 }
+                free(ev);
         }
-        free(ev);
 }
 
 
@@ -182,6 +184,7 @@ int main(void)
 
         handle_events(conn);
 
+        free(f1_key);
         xcb_key_symbols_free(keysyms);
         xcb_disconnect(conn);
 
