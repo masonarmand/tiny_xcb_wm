@@ -1,5 +1,9 @@
 # tinyxcb
-TinyWM ported to XCB. This project compares Xlib and XCB to help decide which is better for future projects.
+TinyWM ported to XCB. I made this project to compare the usage (specifically for
+window managers) of xcb vs Xlib. Compare the source code of TinyWM with the source code
+of this project to gauge the difference between Xlib and xcb.
+
+TinyWM: https://github.com/mackstann/tinywm
 
 Usage is the same as TinyWM:
 ```
@@ -23,36 +27,10 @@ make
 ./run_sandbox
 ```
 
-## Comparison
-
-Why xcb?  
- - Asynchronous API (faster than xlib)
- - xcb is newer and has a much smaller codebase
- - lower memory usage
- - lots more (read here: https://www.x.org/wiki/guide/xlib-and-xcb/)
-
-Why Xlib?
- - higher level API (more built in helper functions/types)
- - Easier to learn and has better documentation
-
-### example of xcb verbosity
-Xlib has simpler, more readable types. Example:
-```C
-XEvent event;
-XButtonEvent button_event = event.xbutton;
-```
-
-xcb on the other hand has long function/type names and requires casting events.
-```C
-xcb_generic_event_t* event;
-xcb_button_press_event_t* button_event = (xcb_button_press_event_t*) event;
-```
-Compare the source code of tinyxcb with TinyWM (https://github.com/mackstann/tinywm)
-to guage the difference between the verbosity of the two libraries.
-
-### Naming Consistency
-xbc prefixes all types/functions with `xcb_`, making it easier to distinguish from user-defined types.
-Xlib, however, uses `X` inconsistently (Window and Display are not prefixed with X), leading to confusion in projects like dwm (where you have custom types like Monitor mixed with Xlibs types).
+## Comparison (Xlib vs XCB)
+xcb uses less memory and is faster than Xlib. However, xcb's documentation is basically
+non-existant and the API is harder to learn (more verbose and low level). Xlib is slower 
+and older, but easier to use and has more documentation. 
 
 ### SLOC (Source Lines of Code) Comparison:
 Source Lines of Code is the lines of code not including line breaks and comments.
