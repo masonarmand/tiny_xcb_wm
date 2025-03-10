@@ -1,6 +1,21 @@
 # tinyxcb
 TinyWM ported to XCB. This project compares Xlib and XCB to help decide which is better for future projects.
 
+
+## Compilation
+Dependencies (Ubuntu / Debian / Mint)
+```
+libxcb-keysyms1-dev
+libxcb1-dev
+libxcb-util0-dev
+```
+
+Build and run inside of Xephyr:
+```
+make
+./run_sandbox
+```
+
 Why xcb?  
  - Asynchronous API (faster than xlib)
  - xcb is newer and has a much smaller codebase
@@ -43,18 +58,4 @@ Measured using `smem` (PSS):
 ```
 tinyxcb - 222.0k
 tinywm  - 308.0k
-```
-
-## Compilation
-Dependencies (Ubuntu / Debian / Mint)
-```
-libxcb-keysyms1-dev
-libxcb1-dev
-libxcb-util0-dev
-```
-
-Build and run inside of Xephyr:
-```
-make
-./run_sandbox
 ```
