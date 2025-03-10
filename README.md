@@ -1,6 +1,13 @@
 # tinyxcb
 TinyWM ported to XCB. This project compares Xlib and XCB to help decide which is better for future projects.
 
+Usage is the same as TinyWM:
+```
+Focus follows pointer.
+Alt + Left Mouse, drag: interactive window move
+Alt + Right Mouse, drag: interactive window resize
+Alt + F1: raise focused window
+```
 
 ## Compilation
 Dependencies (Ubuntu / Debian / Mint)
@@ -50,7 +57,7 @@ Xlib, however, uses `X` inconsistently (Window and Display are not prefixed with
 ### SLOC (Source Lines of Code) Comparison:
 Source Lines of Code is the lines of code not including line breaks and comments.
 ```
-tinyxcb - 150 SLOC
+tinyxcb - 139 SLOC
 tinywm  - 40  SLOC
 ```
 Even if tinyxcb were written like tinywm (everything in main()), it would still be about 3x larger.
