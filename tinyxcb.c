@@ -25,6 +25,7 @@
 
 typedef struct {
         int x, y, w, h;
+        int start_x, start_y;
         unsigned int btn;
         xcb_window_t win;
 } MoveInfo;
@@ -58,15 +59,15 @@ void handle_button_press(EventInfo* event)
                 xcb_get_geometry_reply_t* geom;
 
                 event->mv.win = ev->child;
-                event->mv.x = ev->root_x;
-                event->mv.y = ev->root_y;
+                event->mv.start_x = ev->root_x;
+                event->mv.start_y = ev->root_y;
                 event->mv.btn = ev->detail;
 
                 geom_cookie = xcb_get_geometry(event->conn, event->mv.win);
                 geom = xcb_get_geometry_reply(event->conn, geom_cookie, NULL);
                 if (geom) {
-                        event->mv.x = ev->root_x - geom->x;
-                        event->mv.y = ev->root_y - geom->y;
+                        event->mv.x = geom->x;
+                        event->mv.y = geom->y;
 
                         event->mv.w = geom->width;
                         event->mv.h = geom->height;
@@ -82,12 +83,12 @@ void handle_motion_notify(EventInfo* event)
         MoveInfo mv = event->mv;
 
         if (event->mv.win != XCB_NONE) {
-                int dx = ev->root_x - mv.x;
-                int dy = ev->root_y - mv.y;
+                int dx = ev->root_x - mv.start_x;
+                int dy = ev->root_y - mv.start_y;
                 /* move / resize window */
                 unsigned int values[4] = {
-                        (mv.btn == 1 ? dx : 0),
-                        (mv.btn == 1 ? dy : 0),
+                        mv.x + (mv.btn == 1 ? dx : 0),
+                        mv.y + (mv.btn == 1 ? dy : 0),
                         MAX(1, mv.w + (mv.btn == 3 ? dx : 0)),
                         MAX(1, mv.h + (mv.btn == 3 ? dy : 0))
                 };
