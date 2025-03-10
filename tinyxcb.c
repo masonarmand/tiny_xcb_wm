@@ -1,3 +1,20 @@
+/*
+ * File: tinyxcb.c
+ * Author: Mason Armand
+ * Date Created: March 9th, 2025
+ *
+ * port of TinyWM from Xlib -> xcb
+ *
+ * Like TinyWM, tinyxcb is in the public domain and is provided AS IS, with
+ * NO WARRANTY.
+ * ---------------------------------------------------------------------------
+ *
+ * TinyWM is written by Nick Welch <nick@incise.org> in 2005 & 2011.
+ *
+ * This software is in the public domain
+ * and is provided AS IS, with NO WARRANTY.
+ * https://github.com/mackstann/tinywm/
+ */
 #include <xcb/xcb.h>
 #include <xcb/xcb_keysyms.h>
 #include <X11/keysym.h>
