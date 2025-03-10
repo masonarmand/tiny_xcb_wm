@@ -29,7 +29,7 @@ make
 
 ## Comparison (Xlib vs XCB)
 xcb uses less memory and is faster than Xlib. However, xcb's documentation is basically
-non-existant and the API is harder to learn (more verbose and low level). Xlib is slower 
+non-existent and the API is harder to learn (more verbose and low level). Xlib is slower 
 and older, but easier to use and has more documentation. 
 
 ### SLOC (Source Lines of Code) Comparison:
